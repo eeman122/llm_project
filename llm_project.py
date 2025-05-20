@@ -22,15 +22,20 @@ import assemblyai as aai
 from groq import Groq
 import whisperx
 
-port = int(os.environ.get("PORT", 10000))
 from fastapi import FastAPI
 
 app = FastAPI()
 
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(app, host="0.0.0.0", port=port)
+os.environ["GRADIO_SERVER_TIMEOUT"] = os.getenv("GRADIO_SERVER_TIMEOUT", "600")
+
 if __name__ == "__main__":
     import uvicorn
+
+    port = int(os.environ.get("PORT", 7860))  # use Render's dynamic port or fallback for local dev
     uvicorn.run(app, host="0.0.0.0", port=port)
-os.environ["GRADIO_SERVER_TIMEOUT"] = os.getenv("GRADIO_SERVER_TIMEOUT")
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -520,8 +525,6 @@ with gr.Blocks() as demo:
         outputs=[transcription_output, sentiment_plot, tonal_plot, evaluation_output]
     )
 
-if __name__ == "__main__":
-    demo.launch(server_name="0.0.0.0", server_port=port)
 
 
 
