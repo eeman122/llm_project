@@ -1,4 +1,5 @@
 import os
+import gc
 import re
 import json
 import torch
@@ -22,13 +23,20 @@ from groq import Groq
 import whisperx
 
 port = int(os.environ.get("PORT", 10000))
+from fastapi import FastAPI
 
-uvicorn.run(app, host="0.0.0.0", port=port)
+app = FastAPI()
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=port)
+
 
 from dotenv import load_dotenv
 load_dotenv()
 aai.settings.api_key = os.getenv("ASSEMBLYAI_API_KEY")
 os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
+groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 
 # Sentiment analysis setup
