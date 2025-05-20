@@ -21,6 +21,9 @@ import assemblyai as aai
 from groq import Groq
 import whisperx
 
+port = int(os.environ.get("PORT", 10000))
+
+uvicorn.run(app, host="0.0.0.0", port=port)
 
 from dotenv import load_dotenv
 load_dotenv()
