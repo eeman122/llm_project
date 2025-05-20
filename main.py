@@ -1,6 +1,13 @@
 # main.py
+from fastapi import FastAPI
 
-import gradio as gr
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Used Car Price Prediction API is running."}
+
+
 
 def greet(name):
     return f"Hello, {name}!"
