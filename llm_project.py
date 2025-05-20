@@ -30,7 +30,7 @@ app = FastAPI()
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=port)
-
+os.environ["GRADIO_SERVER_TIMEOUT"] = os.getenv("GRADIO_SERVER_TIMEOUT")
 
 from dotenv import load_dotenv
 load_dotenv()
